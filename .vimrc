@@ -40,9 +40,24 @@ colorscheme spring-night
 hi Normal ctermbg=none
 hi LineNr ctermbg=none
 
-let &t_SI.="\e[6 q"
-let &t_SR.="\e[4 q"
-let &t_EI.="\e[2 q"
+" Cursor settings:
+" 1 -> blinking block
+" 2 -> solid block
+" 3 -> blinking underscore
+" 4 -> solid underscore
+" 5 -> blinking vertical bar
+" 6 -> solid vertical bar
+
+let &t_SI.="\e[6 q" "SI = INSERT mode
+let &t_SR.="\e[4 q" "SR = REPLACE mode
+let &t_EI.="\e[2 q" "EI = NORMAL mode
+
+if exists('$TMUX')
+  let &t_SI.="\ePtmux; \e". &t_SI . "\e\\"
+  let &t_SR.="\ePtmux; \e". &t_SR . "\e\\"
+  let &t_EI.="\ePtmux; \e". &t_EI . "\e\\"
+endif
+
 
 set guicursor=n-v-c:block-Cursor
 set guicursor+=i:ver100-iCursor
